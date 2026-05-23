@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 class Perceptron:
     def __init__(self):
-        self.weights = 0.01 * np.random.randn(1)
+        self.weights = np.random.randn()
         self.biases = 0.0
 
     def forward(self, inputs):
@@ -29,7 +29,7 @@ class MSE:
     (y - y')^2 : d/d'y (y - y')^2 = -2y + 2y'  
     """
     def backward(self):
-        self.dloss = -2 * self.y_input + 2 * self.y_prediction / len(self.y_input)
+        self.dloss = (-2 * self.y_input + 2 * self.y_prediction) / len(self.y_input)
 
 
 
@@ -46,40 +46,41 @@ perceptron = Perceptron()
 mse = MSE()
 
 epochs = 100 # Sicne the non-compleity of this problem, 100 will be enough.
-learning_rate = 0.001
+learning_rate = 0.0001
 ax_x = 0
 ax_y = 0
 
 # ================= LEARNING PHASE ===============
 for epoch in range(epochs):
-    if epoch % 20 == 0:
+    if epoch <= 10 and epoch % 2 == 0:
         perceptron.forward(x)
 
-        ax[ax_y, ax_x] = plt.plot(
+        ax[ax_y, ax_x].plot(
             x, y,
             color="red",
             label="Train Data"
         )
 
-        ax[ax_y, ax_x] = plt.plot(
+        ax[ax_y, ax_x].scatter(
             x, perceptron.outputs,
             color="blue",
             label="Prediction"
         )
-        plt.legend()
+        ax[ax_y, ax_x].legend()
         ax_x += 1
         if ax_x == 3:
             ax_x = 0
             ax_y += 1
     
     perceptron.forward(x)
-    loss = mse.forward(perceptron.outputs, y)
+    loss = mse.forward(y, perceptron.outputs)
 
     mse.backward()
     perceptron.backward(mse.dloss)
 
     perceptron.weights -= learning_rate * perceptron.dweights
     perceptron.biases -= learning_rate * perceptron.dbiasses
+
 
 
 plt.show()
