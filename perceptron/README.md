@@ -1,0 +1,2 @@
+# Aim
+In this example, we'll try to teach a model which can predicts y = 2x. In complex models, we need activation functions, such as ReLu; however, in this example we do not need an activation function, which is the best part of this example. Sicne this example is a linear, we do not have to use activation functions to make the model non-linear. There will be 2 different solutions: model solution and statistical solution. For statistical solution, linear regression is used. 
