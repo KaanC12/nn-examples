@@ -67,6 +67,7 @@ for epoch in range(epochs):
             label="Prediction"
         )
         ax[ax_y, ax_x].legend()
+        ax[ax_y, ax_x].set_title("True value VS. Prediction")
         ax_x += 1
         if ax_x == 3:
             ax_x = 0
